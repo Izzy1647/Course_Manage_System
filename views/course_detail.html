@@ -1,0 +1,140 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>教师端管理</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <!-- <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet"> -->
+
+    <!-- Custom styles for this template -->
+    <link href="../public/css/dashboard.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/teacher?id={{teacher_id}}">选课管理系统</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+              {{courseId}}
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Help</a></li>
+          </ul>
+          <form class="navbar-form navbar-right">
+            <input type="text" class="form-control" placeholder="Search...">
+          </form>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
+            <li><a href="#">Reports</a></li>
+          </ul>
+
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <!-- <h1 class="page-header">Dashboard</h1> -->
+
+          <!-- <div class="row placeholders"> -->
+
+            <!-- 模版引擎渲染 -->
+            <!-- {{each fruits}} 
+            <div class="col-xs-6 col-sm-3 placeholder">
+                    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
+                    <h4>{{$value}}</h4>
+                    <span class="text-muted">Something else</span>
+            </div>
+            {{/each}} -->
+          <!-- </div> -->
+          
+
+          <h2 class="sub-header">选课学生名单</h2>
+          
+
+          <!-- 按钮 -->
+          <!-- <a class="btn btn-success" href="/teacher/new">添加课程</a> -->
+          <!-- <a class="btn btn-success" href="/students/edit">修改学生信息</a> -->
+
+
+
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>学号</th>
+                  <th>姓名</th>
+                  <th>性别</th>
+                  <th>院系</th>
+                  <th>总评成绩</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <!-- 模版引擎渲染 -->
+                {{each students}} 
+                <tr>
+                  <!-- {{$value.courses}} -->
+                    <td>{{$value.detail.student_id}}</td>
+                    <td>{{$value.detail.name}}</td>
+                    <td>{{$value.detail.gender}}</td>
+                    <td>{{$value.detail.major}}</td>
+                    <td>{{$value.course_score}}</td>
+                    <td>
+                      <a href="/teacher/set_score?student_id={{$value.detail.student_id}}&course_id={{courseId}}">修改成绩</a> 
+
+                    </td>
+
+                    <!-- <td>
+                      <a href="/teacher/course_detail?course_id={{$value.course_id}}">查看详情</a> 
+                      &nbsp; &nbsp; &nbsp;
+                      <a href="/teacher/delete?id={{$value.id}}">删除课程</a>
+                    </td> -->
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+    <script src="../../assets/js/vendor/holder.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+  </body>
+</html>

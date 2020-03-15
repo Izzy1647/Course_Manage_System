@@ -1,0 +1,166 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>学生选课系统</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <!-- <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet"> -->
+
+    <!-- Custom styles for this template -->
+    <link href="../public/css/dashboard.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">选课管理系统</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Help</a></li>
+            {{student_id}}
+          </ul>
+          <form class="navbar-form navbar-right">
+            <input type="text" class="form-control" placeholder="Search...">
+          </form>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li class="active"><a href="#">选课 <span class="sr-only">(current)</span></a></li>
+            <li ><a href="/students/score_list?student_id={{student_id}}">我的成绩单 <span class="sr-only">(current)</span></a></li>
+
+          </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <!-- <h1 class="page-header">Dashboard</h1> -->
+
+          <!-- <div class="row placeholders"> -->
+
+            <!-- 模版引擎渲染 -->
+            <!-- {{each fruits}} 
+            <div class="col-xs-6 col-sm-3 placeholder">
+                    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
+                    <h4>{{$value}}</h4>
+                    <span class="text-muted">Something else</span>
+            </div>
+            {{/each}} -->
+          <!-- </div> -->
+
+
+          <h2 class="sub-header">所有课程</h2>
+
+          <!-- 按钮 -->
+          <!-- <a class="btn btn-success" href="/students/new">添加学生信息</a> -->
+          <!-- <a class="btn btn-success" href="/students/edit">修改学生信息</a> -->
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>课程名称</th>
+                  <th>课程号</th>
+                  <th>任课教师号</th>
+                  <th>学分数</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <!-- 模版引擎渲染 -->
+                {{each courses}} 
+                <tr>
+                    <td>{{$value.course_name}}</td>
+                    <td>{{$value.course_id}}</td>
+                    <td>{{$value.teacher_id}}</td>
+                    <td>{{$value.credit}}</td>
+                    <td>
+                      <a href="/students/enroll?course_id={{$value.course_id}}">选课</a> 
+                    </td>
+                </tr>
+                {{/each}}
+
+              </tbody>
+            </table>
+            <br><br>
+
+            <h2 class="sub-header">已选择课程</h2>
+
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>课程名称</th>
+                  <th>课程号</th>
+                  <th>任课教师号</th>
+                  <th>学分数</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <!-- 模版引擎渲染 -->
+                {{each enrolled_courses}} 
+                <tr>
+                    <td>{{$value.course_name}}</td>
+                    <td>{{$value.course_id}}</td>
+                    <td>{{$value.teacher_id}}</td>
+                    <td>{{$value.credit}}</td>
+                    <td>
+                      <a href="/students/enroll?course_id={{$value.course_id}}">查看详情</a> 
+                      <!-- <a href="/students/cancel?course_id={{$value.course_id}}">退课</a>  -->
+                    </td>
+                </tr>
+                {{/each}}
+
+              </tbody>
+            </table>
+
+
+
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+    <script src="../../assets/js/vendor/holder.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+  </body>
+</html>
