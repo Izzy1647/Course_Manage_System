@@ -217,7 +217,7 @@ router.post('/teacher/set_score',(req,res)=>{
     })
 
 
-    Student.find({student_id:student_id},function(err,student){
+    Student.find({student_idxs:student_id},function(err,student){
         if(err){
             console.log(err)
             return res.status(500).send('Server err')
@@ -257,7 +257,9 @@ router.get('/students',(req,res)=> {
         }else{     // 查询这个学生上的课：
             let enrolledCourses = []
             Student.find({student_id:currentStudentId},function(err,studoc){
-                if(err){console.log("err when finding enrolled courses:",err)}else{
+                if(err){
+                    console.log("err when finding enrolled courses:",err)
+                }else{
                     console.log("this student info:",studoc)
                     for(let i of studoc[0].courses){
                         enrolledCourses.push(i)
