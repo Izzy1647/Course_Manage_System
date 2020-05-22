@@ -101,7 +101,7 @@
                     <td>{{$value.detail.course_name}}</td>
                     <td>{{$value.detail.teacher_id}}</td>
                     <td>{{$value.detail.credit}}</td>
-                    <td>{{$value.score}}</td>
+                    <td id="score">{{$value.score}}</td>
                 </tr>
                 {{/each}}
 
@@ -123,5 +123,11 @@
     <script src="../../assets/js/vendor/holder.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+
+    <script>
+      console.log("1")
+      let tScore = document.querySelectorAll("#score")
+      console.log(Number(tScore[0].innerHTML))
+    </script>
   </body>
 </html>
