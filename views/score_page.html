@@ -15,6 +15,12 @@
     <!-- Bootstrap core CSS -->
     <link href="../node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
 
+    <!-- echart -->
+    <link rel="stylesheet" href="../node_modules/echarts/echarts.all.js">
+
+    <!-- 引入 echarts.js -->
+    <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
+
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <!-- <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet"> -->
 
@@ -34,7 +40,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">选课管理系统</a>
+          <a class="navbar-brand" href="/login">选课管理系统</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
@@ -98,10 +104,10 @@
                 {{each courses}} 
                 <tr>
                     <td>{{$value.course_id}}</td>
-                    <td>{{$value.detail.course_name}}</td>
+                    <td class="course">{{$value.detail.course_name}}</td>
                     <td>{{$value.detail.teacher_id}}</td>
                     <td>{{$value.detail.credit}}</td>
-                    <td id="score">{{$value.score}}</td>
+                    <td class="score">{{$value.score}}</td>
                 </tr>
                 {{/each}}
 
@@ -109,9 +115,17 @@
             </table>
 
           </div>
+
+          <div id="chart" style="width: 600px; height: 400px;">
+
+          </div>
+
+      
         </div>
       </div>
     </div>
+
+    
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
@@ -125,9 +139,51 @@
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
 
     <script>
-      console.log("1")
-      let tScore = document.querySelectorAll("#score")
-      console.log(Number(tScore[0].innerHTML))
+      let scoreList = document.querySelectorAll(".score")
+      let courseList = document.querySelectorAll(".course")
+
+      let scores = []
+      let courses = []
+
+      for(let i=0;i<scoreList.length;i++){
+        let currentScore = Number(scoreList[i].innerHTML)
+        scores[i] = currentScore > -1 ? currentScore : 0
+        courses[i] = String(courseList[i].innerHTML)
+      }
+      console.log(scores,courses)
+
+      var myChart = echarts.init(document.getElementById('chart'));
+ 
+      // 指定图表的配置项和数据
+      var option = {
+          title: {
+            text: '我的图表分析'
+          },
+          tooltip: {},
+          legend: {
+              data:['分数']
+          },
+          xAxis: {
+            data: courses,
+            textStyle: {
+              color: 'red'
+            }
+          },
+          color: "#999",
+          yAxis: {},
+          
+          series: [{
+              name: '分数',
+              type: 'bar',
+              data: scores,
+              barWidth: 30
+          }]
+      };
+
+      // 使用刚指定的配置项和数据显示图表
+      myChart.setOption(option)
+
+
     </script>
   </body>
 </html>

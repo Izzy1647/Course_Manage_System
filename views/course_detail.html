@@ -21,6 +21,9 @@
     <!-- Custom styles for this template -->
     <link href="../public/css/dashboard.css" rel="stylesheet">
 
+    <!-- 引入 echarts.js -->
+    <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
+
   </head>
 
   <body>
@@ -102,11 +105,11 @@
                 {{each students}} 
                 <tr>
                   <!-- {{$value.courses}} -->
-                    <td>{{$value.detail.student_id}}</td>
-                    <td>{{$value.detail.name}}</td>
+                    <td class="id">{{$value.detail.student_id}}</td>
+                    <td class="name">{{$value.detail.name}}</td>
                     <td>{{$value.detail.gender}}</td>
                     <td>{{$value.detail.major}}</td>
-                    <td>{{$value.course_score}}</td>
+                    <td class="score">{{$value.course_score}}</td>
                     <td>
                       <a href="/teacher/set_score?student_id={{$value.detail.student_id}}&course_id={{courseId}}">修改成绩</a> 
 
@@ -121,10 +124,65 @@
                 {{/each}}
               </tbody>
             </table>
+
+            <div id="chart" style="width: 600px; height: 400px;">
+
+            </div>
           </div>
         </div>
       </div>
     </div>
+
+    <script>
+      let nameList = document.querySelectorAll(".name")
+      let scoreList = document.querySelectorAll(".score")
+      let idList = document.querySelectorAll(".id")
+
+      let e = 0, d = 0, c = 0, b = 0, a = 0   // rank
+
+      for(let i=0;i<scoreList.length;i++){
+        let currentScore = Number(scoreList[i].innerHTML)
+        console.log(currentScore)
+        if(currentScore < 60){
+          e ++
+        }else if((currentScore >= 60) && (currentScore < 70)){
+          d ++
+        }else if((currentScore >= 70) && (currentScore < 80)){
+          c ++
+        }else if((currentScore >= 80) && (currentScore < 90)){
+          b ++
+        }else if(currentScore >=90){
+          a ++
+        }
+      }
+
+      console.log(a,b,c,d,e)
+
+      var myChart = echarts.init(document.getElementById('chart'));
+ 
+      // 指定图表的配置项和数据
+      var option = {
+        title: {
+            text: '学生成绩分布'
+        },
+        tooltip: {},
+        series: [{
+            name: '成绩分布',
+            type: 'pie',
+            data: [ 
+              {value:a, name:'优秀(高于90分)'},
+              {value:b, name:'良好(80-90分)'},
+              {value:c, name:'一般(70-80分)'},
+              {value:d, name:'及格(60-70分)'},
+              {value:e, name:'不及格(小于60分)'}]
+          }]
+      }
+
+      // 使用刚指定的配置项和数据显示图表
+      myChart.setOption(option)
+
+
+    </script>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->

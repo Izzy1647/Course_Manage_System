@@ -217,7 +217,7 @@ router.post('/teacher/set_score',(req,res)=>{
     })
 
 
-    Student.find({student_idxs:student_id},function(err,student){
+    Student.find({student_id:student_id},function(err,student){
         if(err){
             console.log(err)
             return res.status(500).send('Server err')
